@@ -1,0 +1,26 @@
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+            - name: Set up Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version: '3.11'
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install -r src/requirements.txt
+            - name: Integration Tests
+              run: |
+                  python src/main.py & sleep 5
+                  curl -f http://localhost:8080/
