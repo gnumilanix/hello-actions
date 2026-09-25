@@ -1,4 +1,6 @@
+import os
 from greetings import app
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    host_env = os.environ.get('FLASK_RUN_HOST', '127.0.0.1')
+    app.run(host=host_env, port=8080, debug=True)
