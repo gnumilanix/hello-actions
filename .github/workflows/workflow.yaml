@@ -105,9 +105,29 @@ jobs:
               run: |
                   python src/main.py & sleep 5
                   curl -f http://localhost:8080/
+    docker-integration-test:
+        runs-on: ubuntu-latest
+        needs: [docker-build]
+        services:
+            app-service:
+                image: ghcr.io/${{ github.repository }}:${{ github.sha }}
+                credentials:
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
+                ports:
+                - 8080:8080
+                options: >-
+                    --health-cmd "curl -f http://localhost:8080/ || exit 1"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 3
+        steps:
+            - name: Docker Integration Tests
+              run: |
+                  curl -s http://localhost:8080/ | jq -e '.message == "Hello World"'
     release:
         runs-on: ubuntu-latest
-        needs: [integration-test]
+        needs: [integration-test, docker-integration-test]
         if: github.event_name == 'push'
         steps:
             - uses: actions/checkout@v7
