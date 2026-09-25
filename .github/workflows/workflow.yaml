@@ -152,15 +152,15 @@ jobs:
         needs: [integration-test, docker-integration-test]
         steps:
             - name: Log in to GHCR
-              uses: docker/login-action@v3
+              uses: docker/login-action@v4
               with:
                   registry: ghcr.io
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
             - name: Promote verified image to latest
-              uses: docker/build-push-action@v6
+              uses: docker/build-push-action@v7
               with:
-                  context: .
+                  context: "container://ghcr.io/${{ github.repository }}:${{ github.sha }}"
                   push: true
                   tags: ghcr.io/${{ github.repository }}:latest
     release:
