@@ -115,7 +115,10 @@ jobs:
                     username: ${{ github.actor }}
                     password: ${{ secrets.GITHUB_TOKEN }}
                 ports:
-                - 8080:8080
+                    - 8080:8080
+                env:
+                    FLASK_ENV: production
+                    FLASK_DEBUG: "false"
                 options: >-
                     --health-cmd "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"
                     --health-interval 10s
