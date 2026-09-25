@@ -8,7 +8,19 @@ on:
         branches:
             - main
     workflow_dispatch:
+        inputs:
+            severity:
+                description: "Vulnerability severities to scan for"
+                required: true
+                type: choice
+                default: "CRITICAL,HIGH"
+                options:
+                    - "CRITICAL"
+                    - "CRITICAL,HIGH"
+                    - "CRITICAL,HIGH,MEDIUM"
+                    - "CRITICAL,HIGH,MEDIUM,LOW"
 permissions:
+    contents: read
     packages: write
 env:
     PYTHON_VERSION: 3.11
@@ -127,6 +139,28 @@ jobs:
             - name: Docker Integration Tests
               run: |
                   curl -s http://localhost:8080/ | jq -e '.message == "Hello World"'
+    docker-security-scan:
+        runs-on: ubuntu-latest
+        needs: [docker-build]
+        permissions:
+            security-events: write
+        steps:
+            - name: Run Trivy Vulnerability Scanner
+              uses: aquasecurity/trivy-action@v0.36.0
+              with:
+                  image-ref: "ghcr.io/${{ github.repository }}:${{ github.ref_name }}"
+                  format: "sarif"
+                  output: "trivy-results.sarif"
+                  severity: ${{ github.event.inputs.severity || 'CRITICAL,HIGH' }}
+              env:
+                  TRIVY_USERNAME: ${{ github.actor }}
+                  TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Upload Trivy Scan Results to GitHub Security Tab
+              uses: github/codeql-action/upload-sarif@v4
+              if: always()
+              with:
+                  sarif_file: "trivy-results.sarif"
     publish:
         runs-on: ubuntu-latest
         needs: [integration-test, docker-integration-test]
@@ -149,7 +183,7 @@ jobs:
                   path: dist/
     publish-docker:
         runs-on: ubuntu-latest
-        needs: [integration-test, docker-integration-test]
+        needs: [integration-test, docker-integration-test, docker-security-scan]
         steps:
             - name: Log in to GHCR
               uses: docker/login-action@v4
@@ -181,6 +215,6 @@ jobs:
                   gh release create "${{ github.ref_name }}" \
                   --target "${{ github.sha }}" \
                   --title "Release ${{ github.ref_name }}" \
-                  --notes "Automated release for version ${{ github.ref_name }}. Code and Docker image verified and compiled under Git SHA: \`${{ github.sha }}\`." \
+                  --notes "Automated release for version ${{ github.ref_name }}. Code and Docker image verified and compiled under Git SHA: `${{ github.sha }}\`." \
                   --draft=false \
                   --prerelease=false
