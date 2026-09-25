@@ -119,12 +119,9 @@ jobs:
                 env:
                     FLASK_ENV: production
                     FLASK_DEBUG: "false"
-                options: >-
-                    --health-cmd "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 3
         steps:
+            - name: Wait for Service to Boot
+              run: sleep 3
             - name: Docker Integration Tests
               run: |
                   curl -s http://localhost:8080/ | jq -e '.message == "Hello World"'
