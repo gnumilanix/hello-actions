@@ -26,7 +26,7 @@ jobs:
               run: ruff check src --exit-zero
     build:
         runs-on: ubuntu-latest
-        needs: [lint]
+        needs: [lint, test-integration]
         steps:
             - uses: actions/checkout@v7
             - name: Set up Python
@@ -58,7 +58,7 @@ jobs:
                   curl -f http://localhost:8080/
     release:
         runs-on: ubuntu-latest
-        needs: [build, test-integration]
+        needs: [build]
         if: github.event_name == 'push'
         steps:
             - uses: actions/checkout@v7
