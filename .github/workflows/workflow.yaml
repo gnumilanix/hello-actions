@@ -39,7 +39,6 @@ jobs:
                   pip install -r ${{ env.PYTHON_REQUIREMENTS }}
     test:
         runs-on: ubuntu-latest
-        needs: build
         steps:
             - uses: actions/checkout@v7
             - name: Set up Python
