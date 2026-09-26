@@ -72,6 +72,7 @@ jobs:
             - name: Unit tests
               run: pytest -q tests --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml
             - name: Upload coverage report
+              if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
               uses: actions/upload-code-coverage@v1
               with:
                   file: coverage.xml
