@@ -10,7 +10,7 @@ Repository demonstrating GitHub Actions capabilities, including:
 - Service container for integration testing
 - Docker build and publish to GitHub registry
 - Trivy security scanning with exported reports
-- Code coverate report with gates using Codecov
+- Code coverage report with gates using Codecov
 - Automatic release based on SemVer tags
 
 It's also a fully-fledged Python pipeline, including:
