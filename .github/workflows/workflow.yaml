@@ -59,6 +59,8 @@ jobs:
         needs: [lint, security-scan]
         permissions:
             code-quality: write
+            checks: write
+            pull-requests: read
         steps:
             - uses: actions/checkout@v7
             - name: Set up Python
