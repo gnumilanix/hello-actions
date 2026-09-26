@@ -7,6 +7,7 @@ Repository demonstrating GitHub Actions capabilities, including:
 - Sequential and parallel jobs
 - Steps
 - Permissions
+- Matrix
 - Service container for integration testing
 - Docker build and publish to GitHub registry
 - Trivy security scanning with exported reports
