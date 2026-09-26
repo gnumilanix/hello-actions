@@ -1,3 +1,6 @@
+codecov:
+  branch: main
+  ci_id_fallback_behavior: "latest"
 coverage:
   status:
     project:
