@@ -1,6 +1,5 @@
 # hello-actions
 [![.github/workflows/workflow.yaml](https://github.com/gnumilanix/hello-actions/actions/workflows/workflow.yaml/badge.svg?branch=main)](https://github.com/gnumilanix/hello-actions/actions/workflows/workflow.yaml)
-[![Trivy Security Scan](https://shields.io)](https://github.com/gnumilanix/hello-actions/security/code-scanning)
 
 Repository demonstrating GitHub Actions capabilities, including:
 - Various dispatch triggers
