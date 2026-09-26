@@ -1,5 +1,6 @@
 # hello-actions
 [![.github/workflows/workflow.yaml](https://github.com/gnumilanix/hello-actions/actions/workflows/workflow.yaml/badge.svg?branch=main)](https://github.com/gnumilanix/hello-actions/actions/workflows/workflow.yaml)
+[![codecov](https://codecov.io/github/gnumilanix/hello-actions/graph/badge.svg?token=I1Q5IE3OI6)](https://codecov.io/github/gnumilanix/hello-actions)
 
 Repository demonstrating GitHub Actions capabilities, including:
 - Various dispatch triggers
