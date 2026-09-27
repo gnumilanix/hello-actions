@@ -12,10 +12,11 @@ Repository demonstrating GitHub Actions capabilities, including:
 - Docker build and publish to GitHub registry
 - Trivy security scanning with exported reports
 - Code coverage report with gates using Codecov
+- Dependabot for automatic dependency updates
 - Automatic release based on SemVer tags
 
 It's also a fully-fledged Python pipeline, including:
-- Linting with Ruff
+- Linting, type check and dependencies security scan
 - Unit tests
 - Build
 - Integration tests
