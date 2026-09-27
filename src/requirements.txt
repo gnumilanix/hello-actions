@@ -1,4 +1,4 @@
 Flask
 uvicorn
-setuptools>=83.0.0
-msgpack>=1.2.1
+setuptools>=84.0.0
+msgpack>=1.2.2
