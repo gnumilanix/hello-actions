@@ -104,7 +104,7 @@ jobs:
             - name: Unit tests
               run: pytest -q src/tests --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v5
+              uses: codecov/codecov-action@v7
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
                   override_branch: main
@@ -254,7 +254,7 @@ jobs:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - name: Checkout Code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Create Official GitHub Release via CLI
               run: |
