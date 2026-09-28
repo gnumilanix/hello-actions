@@ -197,6 +197,8 @@ jobs:
                   severity: ${{ github.event.inputs.severity || 'CRITICAL,HIGH' }}
                 #   exit-code: "1"
                   limit-severities-for-sarif: true
+                  scan-type: "image"
+                  scan-ref: "."
               env:
                   TRIVY_USERNAME: ${{ github.actor }}
                   TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
