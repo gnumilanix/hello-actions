@@ -1,4 +1,4 @@
-FROM python:3.14-alpine AS builder
+FROM python:3.15-alpine AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir --upgrade pip
 COPY src/requirements.txt ./
 RUN pip install --no-cache-dir --force-reinstall -r requirements.txt
 
-FROM python:3.14-alpine AS runner
+FROM python:3.15-alpine AS runner
 
 WORKDIR /app
 
